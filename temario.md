@@ -81,7 +81,7 @@
   + Conda
   + Git
 
-+ **Terminal unix.** Comandos básicos: `cp`, `mv`, `mkdir`, `rm`.  
++ **Terminal unix.** Comandos básicos: `cp`, `mv`, `mkdir`, `rm`. 
 + **Git.** Inicializar repos, crear ramas, commits, merges.
 + **Conda.** Crear ambientes, instalar paquetería.
 + **Flujo de trabajo.** 
