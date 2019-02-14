@@ -65,4 +65,32 @@ x = 'Ahora soy una cadena'
 x
 ```
 
-## 
+### Condicionales
+
+Una vez más Python se mostrará mucho más limpio que otros lenguajes.
+
+```python
+x = 3
+```
+
+```python
+if x < 0:
+    print('x es negativo')
+elif x==0:
+    print('x es cero')
+else:
+    print('x es positivo')
+```
+
+No hay llaves ni paréntesis, pero la identación importa. Es un buen hábito de python usar cuatro espacios (y no tabulador) para identar código.
+
+
+### Ciclos
+La estructura de un `for` en python es
+
+```python
+for i in range(10):
+    print(i)
+```
+
+
