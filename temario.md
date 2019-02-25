@@ -2,7 +2,9 @@
 
 
 
-## Sesión 1: Python 101
+## Tema 1: Python 101
+
+###### 																Tiempo estimado: una  sesión
 
 + Básicos
   + Asignación de variables.
@@ -19,33 +21,37 @@
   + `try`/ `except`
   + `with`
 + Librerías
-+ Debugger
 
-## Sesión 2: Python para cómputo científico
+## Tema 2: Python para cómputo científico
+
+###### ​																Tiempo estimado: una  sesión
 
 + Vectorización para reducir tiempos de ejecución.
-+ Numpy
++ NumPy
   + Arreglos
   + Funciones básicas (`sort`, `unique`, `argmin`, `arange`)
   + Aritmética de arreglos
-+ Scipy
++ SciPy
   + `linalg`
     + Operaciones básicas.
     + Problemas espectrales.
     + Descomposiciones.
-  + `integrate` y `optimize`
+  + `integrate` y `optimize` (opcional)
     + Diferencias finitas
     + Integración
     + Encontrar raíces
-+ Diferenciación 
++ Diferenciación (opcional)
   + SymPy
   + Numdifftools
 + Matplotlib
   + Gráficas básicas de la forma $f(x)$ 
   + Gráficas en tres dimensiones
   + subplots, `fig`, `ax` 
++ Numba (opcional)
 
-## Sesión 3: Python para ciencia de datos
+## Tema 3: Python para ciencia de datos
+
+###### ​															Tiempo estimado: una sesión y media
 
 + Pandas
   + Dataframes
@@ -53,35 +59,42 @@
   + Series
   + `loc` y `query`
   + Gráficas desde pandas
-  + queries tipo SQL:
+  + Queries tipo SQL 
     + `merge`
     + `groupby`
     + `agg`
-
 + Seaborn
   + Histogramas
   + Categorical plots
   + Pairplots
-
-+ Scipy
++ SciPy
   + `stats`
     + Distribuciones (explicar parametrización)
     + `fit`
     + `rvs`
++ StatsModels (opcional)
+  + Series de tiempo
+  + GLMs
++ PyMC3 (opcional) (mencionar su existencia y link al repo de BMH)
++ Scikit-Learn
+  + La necesidad de una especificación consistente de ML
+  + `fit`/`predict`/`transform`
+  + Herramientas para selección de modelos
+    + train/test split
+    + Cross-Valdiation
+    + GridSearch y BayesSearchCV
+  + Ejemplo más o menos detallado (nivel aplicada 2/3).
 
-+ Statsmodels
-+ Scikit-learn
-+ PyMC3
+## Tema 4: 
 
-## Sesión 4: Ambientes
+###### ​																Tiempo estimado: media sesión
 
-+ **Introducción.** Por qué complicarse tanto la vida (git, python, conda, jupytext).
++ Introducción conceptual a conda, git y jupyter.
 + **Instalación.** 
   + Python
   + Conda
-  + Git
-
-+ **Terminal unix.** Comandos básicos: `cp`, `mv`, `mkdir`, `rm`. 
-+ **Git.** Inicializar repos, crear ramas, commits, merges.
-+ **Conda.** Crear ambientes, instalar paquetería.
-+ **Flujo de trabajo.** 
++ Comandos básicos de Unix: `cp`, `mv`, `mkdir`, `rm`. 
++ Conda
+  + Crear ambientes
+  + Instalar paquetería.
++ Jupyter
