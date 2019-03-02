@@ -12,10 +12,11 @@
   + Ciclos.
   + `print`
 + Listas, diccionarios y comprensión.
-+ Funciones. 
++ Funciones.
   + Definir funciones
-  + Funciones de orden superior
   + Funciones anónimas
+  + Funciones de orden superior
+  + Decoradores
   + `*args` y `**kwargs`
 + Excepciones
   + `try`/ `except`
@@ -44,9 +45,9 @@
   + SymPy
   + Numdifftools
 + Matplotlib
-  + Gráficas básicas de la forma $f(x)$ 
+  + Gráficas básicas de la forma $f(x)$
   + Gráficas en tres dimensiones
-  + subplots, `fig`, `ax` 
+  + subplots, `fig`, `ax`
 + Numba (opcional)
 
 ## Tema 3: Python para ciencia de datos
@@ -59,7 +60,7 @@
   + Series
   + `loc` y `query`
   + Gráficas desde pandas
-  + Queries tipo SQL 
+  + Queries tipo SQL
     + `merge`
     + `groupby`
     + `agg`
@@ -85,15 +86,15 @@
     + GridSearch y BayesSearchCV
   + Ejemplo más o menos detallado (nivel aplicada 2/3).
 
-## Tema 4: 
+## Tema 4:
 
 ###### ​																Tiempo estimado: media sesión
 
 + Introducción conceptual a conda, git y jupyter.
-+ **Instalación.** 
++ **Instalación.**
   + Python
   + Conda
-+ Comandos básicos de Unix: `cp`, `mv`, `mkdir`, `rm`. 
++ Comandos básicos de Unix: `cp`, `mv`, `mkdir`, `rm`.
 + Conda
   + Crear ambientes
   + Instalar paquetería.
