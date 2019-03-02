@@ -21,7 +21,7 @@
 + Excepciones
   + `try`/ `except`
   + `with`
-+ Librerías
++ Módulos y paquetes
 
 ## Tema 2: Python para cómputo científico
 
@@ -86,7 +86,7 @@
     + GridSearch y BayesSearchCV
   + Ejemplo más o menos detallado (nivel aplicada 2/3).
 
-## Tema 4:
+## Tema 4: Ambientes de trabajo
 
 ###### ​																Tiempo estimado: media sesión
 
