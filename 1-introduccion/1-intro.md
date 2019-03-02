@@ -38,9 +38,6 @@ Algo debe tener, ¿no?
 
 Vale la pena detenerse un poco en esta última observación. Parte de la filosofía de Python desde su concepción era tener un lenguaje minimal pero fácilmente extensible. En la siguiente sesión veremos que el ecosistema de cómputo científico y estadístico de Python, que utiliza librerías eficientes de Fortran y C consigue velocidades comparables con MATLAB (igual que MATLAB, numpu corre sobre [LAPACK](https://en.wikipedia.org/wiki/LAPACK) y [BLAS](https://en.wikipedia.org/wiki/Basic_Linear_Algebra_Subprograms) *sin perder todas las demás ventajas*. 
 
-> Regla de dedo: **nunca** necesitas MATLAB para que tu código corra suficientemente rápido. Si no puedes mejorar la complejidad algorítmica (en el sentido de $O$), considera una solución distribuida.
-
-
 
 
 ## Básicos
@@ -92,5 +89,14 @@ La estructura de un `for` en python es
 for i in range(10):
     print(i)
 ```
+Noten que python indexa desde cero. ¿Y si hubiéramos querido ir del 1 al 10?
 
+```python
+for i in range(1,11):
+    print(i)
 
+```
+
+```python
+
+```
