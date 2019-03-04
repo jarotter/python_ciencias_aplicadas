@@ -62,6 +62,57 @@ x = 'Ahora soy una cadena'
 x
 ```
 
+### [Estructuras de datos](https://docs.python.org/3.7/tutorial/datastructures.html)
+
+
+Python tiene entre sus tipos base, además de números y cadenas, listas, conjuntos y diccionarios.
+Las listas de Python *no* son equivalentes a los arreglos de R y MATLAB ni a las listas de Java, pues pueden tener más de un tipo de dato.
+
+```python
+['una', 2.59, 'lista', 'de', 3, 'cosas', sum, [i for i in range(3)]]
+```
+
+Las listas tienen métodos para usarse como pila.
+
+```python
+l = [1, 2, 3, 4, 5]
+l
+```
+
+```python
+l.append(6)
+l
+```
+
+```python
+print(l.pop())
+l
+```
+
+Los **diccionarios** son listas nombradas. Se guardan en pares llave-valor. Por ejemplo, podemos tener un diccionario que mapee claves únicas en nombres.
+
+```python
+d = {158391:'Jorge Rotter', 125678:'Alguien'}
+d
+```
+
+Añadir nuevas observaciones es muy sencillo:
+
+```python
+d[209312] = 'abc'
+d
+```
+
+¿Y si quisieran mezclar llaves de distintos tipos?
+
+```python
+d['cadena'] = 1
+d
+```
+
+> **NOTA:** Aunque en Python tengan la libertad de hacer cosas de ese estilo, no es un buen hábito en general mezclar tipos en diccionarios y en listas sin hacerlo de manera sistemática.
+
+
 ### Condicionales
 
 Una vez más Python se mostrará mucho más limpio que otros lenguajes.
@@ -97,6 +148,20 @@ for i in range(1,11):
 
 ```
 
-```python
+Pero hay maneras más apropiadas de hacerlo. Por ejemplo, para un arreglo de los primeros 5 números pares (sin contar al cero):
 
+```python
+[2*i for i in range(1,6)]
+```
+
+Esta manera explícita de escribir una *lista* (las listas son una de las estructuras de datos básicas de Python, más sobre esto después) se llama una *lista comprensiva*. La forma general de una lista comprensiva es
+
+# ```
+[f(x) for x in X if p(x)]
+# ```
+
+donde `f` y `g` son funciones y `X` es un generador (que veremos después). Algunos otros ejemplos:
+
+```python
+[i/3 for i in range(10) if i%2==0]
 ```
