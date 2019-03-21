@@ -12,12 +12,12 @@ jupyter:
     name: python3
 ---
 
-# Python para ciencias aplicadas
-
-
 > Schools (and this includes all educational activities) influence the future of society through what they teach. They should teach exclusively free software, so as to use their influence for the good. To teach a proprietary program is to implant dependence, which goes against the mission of education. By training in use of free software, schools will direct society's future towards freedom, and help talented programmers master the craft.
 
-Richard Stallman sobre [https://www.gnu.org/philosophy/free-software-even-more-important.en.html](software libre)
+Richard Stallman sobre [software libre](https://www.gnu.org/philosophy/free-software-even-more-important.en.html)
+
+
+# Python para ciencias aplicadas
 
 ```python
 import this
@@ -97,6 +97,45 @@ l
 
 Y hay colas y otras cosas en librerías que veremos después.
 
+
+Las listas tienen índices muy convenientes:
++ `a[i:j]` toma los elementos $[i, j)$
+
+```python
+a = [i for i in range(10)]
+a
+```
+
+```python
+a[4:7]
+```
+
++ `a[i:]` toma todos los elementos desde (e incluyendo) el $i$
+
+```python
+a[7:]
+```
+
++ `a[:j]` toma todos hasta (y sin incluir) el del índice $j$. Es más fácil pensarlo como los primeros $j$.
+
+```python
+a[:7]
+```
+
++ `a[-1]` toma el último elemento, y en general los números negativos cuentan hacia atrás.
+
+```python
+a[-1]
+```
+
+> **Pregunta:** ¿Qué debería regresar `a[-4]`?
+
+
++ `a[::k]` regresa cada $k$-ésimo elemento
+
+```python
+a[::4]
+```
 
 Los **diccionarios** son listas nombradas. Se guardan en pares llave-valor. Por ejemplo, podemos tener un diccionario que mapee claves únicas en nombres.
 
@@ -190,6 +229,28 @@ if -2 < x < 2:
     print(':)')
 else:
     print(':(')
+```
+
+Como en C, hay un operador ternario para escribir condicionales cortos.
+
+```python
+2 if 8%3==0 else 3
+```
+
+es equivalente a
+
+```python
+if 8%3==0:
+    2
+else:
+    3
+```
+
+pero puede usarse en asignción de variables.
+
+```python
+z = 2 if 8%3==0 else 3
+z
 ```
 
 ### Ciclos
@@ -475,6 +536,117 @@ num
 ```python
 num_por_dos
 ```
+
+Además de argumentos por posición, python permite enviar **argumentos nombrados**. La única regla es que los argumentos nombrados deben ir al final. Por ejemplo,
+
+```python
+def bienvenida(nombre, num_veces=1):
+    print(f"¡{'Hola'*num_veces} {nombre}!")
+```
+
+```python
+bienvenida('Jorge')
+```
+
+Nota que tuvimos que dar un *valor por defecto* al argumento `num_veces` por si el usuario no lo especifica. Este es el caso de uso general de los argumentos nombrados: alguna especie de parámetro que puede ser modificable pero no es lo primordial de la función. Para cambiarlo, basta especificar
+
+```python
+bienvenida('Jorge', num_veces=3)
+```
+
+Otra vez, la regla es que los argumentos nombrados van al final. Hacerlo al revés regresa un error. 
+
+```python
+bienvenida(num_veces=3, 'Jorge')
+```
+
+Pero ignorar el nombre es posible.
+
+```python
+bienvenida('Jorge', 3)
+```
+
+En funciones con más de uno aún puede ignorarse, pero a menos que uno sepa el orden es preferible no hacerlo. Si se envían sin nombre, respeta el orden de la definción.
+
+```python
+def bienvenida(nombre, num_holas=1, num_signos=1):
+    print(f"¡{'Hola'*num_holas} {nombre}{'!'*num_signos}")
+```
+
+```python
+bienvenida('Jorge', 3, 9)
+```
+
+```python
+bienvenida('Jorge', 9, 3)
+```
+
+Pero usar los nombres permite sólo modificar algunos y escribir en el orden conveniente.
+
+```python
+bienvenida('Jorge', num_signos=8)
+```
+
+```python
+bienvenida('Jorge', num_signos=8, num_holas=2)
+```
+
+A veces es conveniente dejar libre el número de argumentos que puede recibir una función. Supongamos por ejemplo que se quiere devolver el producto de números que el usuario proporcione. Al menos se necesita un número pero no hay un número fijo más allá de esa restricción.
+
+Para resolverlo, se usan los **argumentos variables**, convencionalmente llamados `*args`.
+
+```python
+def suma_arbitraria(x, *args):
+    for i in args:
+        x += i
+    return x
+```
+
+```python
+suma_arbitraria(1)
+```
+
+```python
+suma_arbitraria(1, 2, 3, 4, 5, 6)
+```
+
+¿Cómo lo maneja python por dentro? Modifiquemos la función para imprimir los argumentos.
+
+```python
+def suma_arbitraria(x, *args):
+    print(args)
+    print(*args)
+    for i in args:
+        x += i
+    return x
+```
+
+```python
+suma_arbitraria(1, 2, 3, 4, 5, 6)
+```
+
+`args` es una tupla con todos los demás argumentos que fueron enviados y no correspondían a los de la definición. El asterisco desempaca los valores, como vemos en el segundo `print`. De hecho, podría usarse cualquier palabra después del asterisco (por ejemplo `*magia` o `*wow_que_maravilloso_es_python`) en vez de `*args`, pero es convencional usar `args`.
+
+El equivalente para argumentos nombrados es `**kwargs`, que guarda un diccionario con argumentos nombrados arbitrarios.
+
+```python
+def f(**kwargs):
+    print(kwargs)
+```
+
+```python
+f(uno='string', dos=3, tres='dos')
+```
+
+El orden que debe usarse al llamar funciones es
+1. Argumentos formales
+2. `*args`
+3. Argumentos nombrados
+4. `**kwargs`
+
+Otro buen caso de uso de los `**kwargs` es enviar argumentos a funciones internas. Si $g$ se ejecuta dentro de $f$ y sólo dentro de $f$, los parámetros de $g$ pueden ajustarse desde la llamada a $f$. 
+
+> **Pregunta:** Implementa un ejemplo de esta idea.
 
 ```python
 
