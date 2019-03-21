@@ -12,12 +12,12 @@ jupyter:
     name: python3
 ---
 
+# Python para ciencias aplicadas
+
+
 > Schools (and this includes all educational activities) influence the future of society through what they teach. They should teach exclusively free software, so as to use their influence for the good. To teach a proprietary program is to implant dependence, which goes against the mission of education. By training in use of free software, schools will direct society's future towards freedom, and help talented programmers master the craft.
 
 Richard Stallman sobre [software libre](https://www.gnu.org/philosophy/free-software-even-more-important.en.html)
-
-
-# Python para ciencias aplicadas
 
 ```python
 import this
@@ -136,6 +136,9 @@ a[-1]
 ```python
 a[::4]
 ```
+
+Como corolario, todas las cadenas funcionan como listas de caracteres, y pueden usar estas mismas técnicas de slicing.
+
 
 Los **diccionarios** son listas nombradas. Se guardan en pares llave-valor. Por ejemplo, podemos tener un diccionario que mapee claves únicas en nombres.
 
@@ -324,6 +327,9 @@ for i in range(10, 1, -3):
     print(i)
 ```
 
+### Ciclos en estructuras de datos
+
+
 Hay funciones de mucha ayuda en Python para recorrer secuencias. Para recorrer una lista y saber el índice, se usa `enumerate`.
 
 ```python
@@ -407,12 +413,6 @@ Noten que en los argumentos de una función tampoco se necesita especificar el t
 add(2,3)
 ```
 
-```python
-add(2, '4')
-```
-
-Claro que como todo lo interpretado, tiene sus desventajas.
-
 En general, las funciones se documentan justo después de su `def` con cadenas en varias líneas. Yo uso las [convenciones de numpy](https://www.numpy.org/devdocs/docs/howto_document.html).
 
 ```python
@@ -447,6 +447,9 @@ f = add
 ```python
 f(2, 3)
 ```
+
+### Funciones de orden superior y aplicación parcial
+
 
 Si las funciones pueden guardarse como cualquier otro objeto, en particular pueden regresarse de otra función. En matemáticas es muy normal trabajar con operadores y en genral funciones de funciones (por ejemplo, el operador $\nabla$ o el de Fourier). 
 
@@ -591,6 +594,9 @@ bienvenida('Jorge', num_signos=8)
 bienvenida('Jorge', num_signos=8, num_holas=2)
 ```
 
+### `*args` y `**kwargs`
+
+
 A veces es conveniente dejar libre el número de argumentos que puede recibir una función. Supongamos por ejemplo que se quiere devolver el producto de números que el usuario proporcione. Al menos se necesita un número pero no hay un número fijo más allá de esa restricción.
 
 Para resolverlo, se usan los **argumentos variables**, convencionalmente llamados `*args`.
@@ -647,6 +653,180 @@ El orden que debe usarse al llamar funciones es
 Otro buen caso de uso de los `**kwargs` es enviar argumentos a funciones internas. Si $g$ se ejecuta dentro de $f$ y sólo dentro de $f$, los parámetros de $g$ pueden ajustarse desde la llamada a $f$. 
 
 > **Pregunta:** Implementa un ejemplo de esta idea.
+
+
+## Módulos y paquetes
+
+
+En la práctica, los programas son más complicados que un único archivo. Muchas veces querremos reutilizar funciones en diferentes contextos, o simplemente separar nuestro código en archivos para facilitar el mantenimiento y el trabajo en equipo.
+
+Un archivo de python se llama un **módulo**. Podemos importar nuestros propios archivos de Python como módulos (y lo haremos más adelante) pero también podemos importar módulos instalados a través de un gestor de paquetes como `pip` o `conda`.
+
+Para importar todo un módulo usamos `import`. Por ejemplo:
+
+
+```python
+import math
+```
+
+```python
+dir(math)
+```
+
+```python
+type(math)
+```
+
+`math` tiene sus métodos como `tanh` y sus atributos como `pi`.
+
+```python
+math.pi
+```
+
+```python
+math.tanh(math.pi)
+```
+
+Si sólo queremos importar ciertos métodos o atributos, la sintaxis general es
+
+# ```
+from mod import f1, f2, f3, ..., fn
+# ```
+
+```python
+from json import load
+```
+
+```python
+json
+```
+
+```python
+type(json)
+```
+
+```python
+load
+```
+
+Python reconoce que `json` es un módulo y `load` una función. Notemos que con la sintaxis `from` no es necesario escribir `json.load`, a diferencia de lo que hicimos con math.
+
+
+```python
+pi
+```
+
+Una colección de módulos se llama **paquete**. Para referirsea un módulo dentro de un paquete se usa la notación de punto que ya han visto, como `package.module`. Más adelante usaremos esto mucho. 
+
+Para crear paquetes con tus propios módulos, basta poner un archivo `__init__.py` en la carpeta que contiene los archivos. Si te interesa más, revisa la [documentación](https://docs.python.org/3.8/tutorial/modules.html).
+
+
+## Más control de flujo
+
+
+### Excepciones
+
+
+¿Qué hace Python si intentamos dividir entre cero?
+
+```python
+3/0
+```
+
+Levanta una **excepción**. Una excepción ocure cuando el código es sintácticamente correcto pero algún tipo de problema no lo permite avanzar. A diferencia de los errores sintácticos, en los que Python simplemente no va a saber qué hacer, muchas veces es deseable que el código continúe su ejecución aunque se enfrente algún problema.
+
+Para seguir con el ejemplo, supongamos que tenemos una función dividir.
+
+```python
+def divide(a, b):
+    """ a/b
+    """
+    return a/b
+```
+
+```python
+divide(5,3)
+```
+
+```python
+divide(5,0)
+```
+
+Y otra vez recibimos una excepción: `ZeroDivisionError`. Claro que en este caso podríamos mejorar la función revisando el único valor crítico
+
+```python
+def divide(a, b):
+    """a/b
+    """
+    if b == 0:
+        print('No puedo dividir entre 0')
+        return
+    else:
+        return a/b
+```
+
+```python
+divide(5,0)
+```
+
+Pero no siempre sabemos los casos críticos, los errores que pueden ocurrir y un `if` no está pensado para esto. Por ejemplo, el usuario podría intentar
+
+```python
+divide(5, '0')
+```
+
+La manera correcta de evitar estos errores es usar `try` y `except`.
+
+```python
+def divide(a, b):
+    """a/b
+    """
+    try:
+        return a/b
+    except (ZeroDivisionError, TypeError):
+        print('Problema con los argumentos')
+```
+
+```python
+divide(5,0)
+```
+
+Si no sabemos qué erorres pueden ocurrir, puede dejarse solamente `except`, y eso atrapa cualquier posible excepción. La forma general e`
+
+# ```
+try:
+    do_something()
+except SomeError1:
+    action_for_error1()
+except (SomeError2, SomeError3, ..., SomeErrorN):
+    action_for_other_errors()
+# Notación equivalente
+except SomeError2 or SomeError3 or ... or SomeErrorN:
+    action_for_other_errors()
+# ```
+
+
+### `with`
+
+
+Al abrir archivos, el recolector de basura de Python no puede liberar la memoria automáticamente cuando el archivo deja de usarse. Para abrir y cerrar recursos sin llenar la memoria de basura, python usa `with`. 
+
+```python
+import json
+try:
+    with open('../data/moveis.json') as f:
+        movies = json.load(f)
+except FileNotFoundError as fnf:
+    print(fnf)
+```
+
+```python
+try:
+    with open('../data/movies.json') as f:
+        movies = json.load(f)
+except FileNotFoundError as fnf:
+    print(fnf)
+```
 
 ```python
 
