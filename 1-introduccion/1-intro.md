@@ -170,6 +170,27 @@ else:
 
 No hay llaves ni paréntesis, pero la identación importa. Es un buen hábito de python usar cuatro espacios (y no tabulador) para identar código.
 
+Para conjunción se usa `or` y para disjunción `and`.
+
+```python
+x = 8
+
+if x < 0 or x > 100:
+    print('caso uno')
+elif x%2==0 and x%4==0:
+    print('caso dos')
+else:
+    print('caso 3')
+```
+
+Aunque cuando son números, el and puede evitarse.
+
+```python
+if -2 < x < 2:
+    print(':)')
+else:
+    print(':(')
+```
 
 ### Ciclos
 La estructura de un `for` en python es
@@ -225,6 +246,20 @@ for i in range(10):
 for i in range(1000000):
     if i>2:
         break
+    print(i)
+```
+
+Además, es posible cambiar los aumentos en un ciclo `for`. Por ejemplo, para ir de dos en dos:
+
+```python
+for i in range(0, 10, 2):
+    print(i)
+```
+
+O avanzar hacia atrás.
+
+```python
+for i in range(10, 1, -3):
     print(i)
 ```
 
@@ -285,7 +320,161 @@ En todas las estructuras mutables puede revisarse pertenencia. La más rápida e
 > **Pregunta:** ¿Por qué una da `TRUE` y otra `FALSE`?
 
 
+Una función de utilidad más es `zip`, que permite iterar dos listas a la vez. Por ejemplo, si tenemos llaves en una lista y valores en otra:
+
+```python
+keys = [1, 2, 3]
+
+values = ['uno', 'dos', 'tres']
+
+dict(zip(keys,values))
+```
+
 ## Funciones
+
+
+Para definir funciones, se usa la palabra clave `def`.
+
+```python
+def add(x, y):
+    return x + y
+```
+
+Noten que en los argumentos de una función tampoco se necesita especificar el tipo.
+
+```python
+add(2,3)
+```
+
+```python
+add(2, '4')
+```
+
+Claro que como todo lo interpretado, tiene sus desventajas.
+
+En general, las funciones se documentan justo después de su `def` con cadenas en varias líneas. Yo uso las [convenciones de numpy](https://www.numpy.org/devdocs/docs/howto_document.html).
+
+```python
+def add(x, y):
+    """ Suma dos números
+    
+    Parameters
+    ----------
+    x: float
+        Un número
+    y: float
+        Otro número
+        
+    Returns
+    -------
+    float
+        La suma x+y
+    """
+    
+    return x+y
+```
+
+Sé que parece un poco exagerado, pero así será fácil generar documentación después usando [sphinx](http://www.sphinx-doc.org/en/master/).
+
+
+En python, las funciones son objetos de primera clase. En términos prácticos, esto significa que puedes hacer asignaciones como
+
+```python
+f = add
+```
+
+```python
+f(2, 3)
+```
+
+Si las funciones pueden guardarse como cualquier otro objeto, en particular pueden regresarse de otra función. En matemáticas es muy normal trabajar con operadores y en genral funciones de funciones (por ejemplo, el operador $\nabla$ o el de Fourier). 
+
+Para fijar ideas sin irnos a operadores, veamos un ejemplo de **aplicación parcial**. La idea de la aplicación parcial es tomar una función $f: X \times X \to Y$ que mapea $(x,x') \mapsto f(x, x')$ y fijar el primer argumento (digamos, en $x_0$) para tener una función $f_{x_0}: X \to Y$ que mapea $x \to f(x_0, x)$. Por supuesto que esto puede hacerse con cualquier número de elementos.
+
+Recordemos en `add` es una función que recibe dos argumentos y los suma.
+
+```python
+add(2,4)
+```
+
+```python
+def suma_x(x):
+    """Regresa una función que suma x.
+    """
+    return lambda z: add(x, z)
+```
+
+```python
+suma_2 = suma_x(2)
+suma_2(3)
+```
+
+Pasaron muchas cosas en esas celdas que hay que analizar. La notación `lambda` define una **función anónima**, azucar sintáctica para evitar definiciones de funciones rápidas.
+Básicamente, el código de arriba sería equivalente a 
+
+```python
+def suma_x_forma_larga(x):
+    """ Regresa una función que suma x, pero está escrito feo.
+    """
+    def f(y):
+        """ omg cuántas funciones
+        """
+        return add(x, y)
+    return f
+```
+
+```python
+g = suma_x_forma_larga(2)
+g(3)
+```
+
+¿Qué hay en `g`? Una función de Python como cualquier otra.
+
+```python
+suma_2
+```
+
+```python
+g
+```
+
+A veces es conveniente regresar más de un valor en una función. Por ejemplo,
+
+```python
+def x_2x(x):
+    """Regresa x y 2x.
+    """
+    return x, 2*x
+```
+
+```python
+results = x_2x(3)
+results
+```
+
+Aunque Python formalmente sólo puede regresar un objeto, por lo que empaca ambos valores en una tupla. Para extraerlos, puede usarse.
+
+```python
+results[0]
+```
+
+```python
+results[1]
+```
+
+Pero si desde antemano se sabe cuántos resultados arroja la función, hay azucar sintáctica:
+
+```python
+num, num_por_dos = x_2x(8)
+```
+
+```python
+num
+```
+
+```python
+num_por_dos
+```
 
 ```python
 
