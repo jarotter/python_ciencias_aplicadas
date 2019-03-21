@@ -828,6 +828,19 @@ except FileNotFoundError as fnf:
     print(fnf)
 ```
 
-```python
+## Ejercicios
 
-```
+
+1. Escribe una función que reciba dos listas y determine si tienen algún elemento en común.
+2. Ahora extiéndela para que cuente el número total de elementos comunes.
+3. Escribe una función que encuentre el k-ésimo elemento más grande de una lista de números.
+4. Escribe una función que reciba una lista de diccionarios y los imprima como tabla.
+5. Escribe una función cuyo argumento sea una serie de funciones que deben ejecutarse una por una e imprimir su nombre (antes de correrla) y su resultado (después de correrlas).
+
+
+## Temas adicionales
+
+
++ [Decoradores](https://realpython.com/primer-on-python-decorators/)
++ [Tips de estilo](https://medium.com/the-andela-way/idiomatic-python-coding-the-smart-way-cc560fa5f1d6)
++ [Documentación](https://docs.python.org/3/)
