@@ -119,7 +119,7 @@ d['cadena'] = 1
 d
 ```
 
-> **NOTA:** Aunque en Python tengan la libertad de hacer cosas de ese estilo, no es un buen hábito en general mezclar tipos en diccionarios y en listas sin hacerlo de manera sistemática.
+Aunque en Python tengan la libertad de hacer cosas de ese estilo, no es un buen hábito en general mezclar tipos en diccionarios y en listas sin hacerlo de manera sistemática.
 
 
 A diferencia de las listas, los conjuntos no mantienen orden y no guardan elementos repetidos. En ese sentido son como conjuntos matemáticos.
@@ -206,7 +206,86 @@ Otro ejemplo, ¿cuáles son los elementos de esta lista?
 ```python
 [i/3 for i in range(10) if i%2==0]
 ```
-> **Nota:** Claro que se pueden hacer comprensión de conjuntos, como en matemáticas. Después veremos que la idea general detrás de esta sintaxis son los *generadores*, otro concepto de Python.
+Claro que se puede hacer comprensión de conjuntos, como en matemáticas. Después veremos que la idea general detrás de esta sintaxis son los *generadores*, otro concepto de Python.
+
+```python
+{i/3 for i in range(10) if i%2==0}
+```
+
+Igual que en C, puede salirse de un loop con `break` y proceder a la siguiente iteración con `continue`.
+
+```python
+for i in range(10):
+    if i%3 == 0:
+        continue
+    print(i)
+```
+
+```python
+for i in range(1000000):
+    if i>2:
+        break
+    print(i)
+```
+
+Hay funciones de mucha ayuda en Python para recorrer secuencias. Para recorrer una lista y saber el índice, se usa `enumerate`.
+
+```python
+A = [2*i for i in range(10)]
+for i, a in enumerate(A):
+    print(f'i={i} y a={a}')
+```
+
+La sintaxis de cadena usando `f''` es relativamente nueva en Python. Las expresiones que están entre llaves se evalúan antes de guardar la cadena.
+
+Se puede recorrer una secuencia al revés con `reverse`.
+
+```python
+for i, a in enumerate(reversed((A))):
+    print(f'i={i} y a={a}')
+```
+
+> **Pregunta:** ¿Qué pasa con los índices?
+
+
+Para ordenar la secuencia antes, se usa `sorted`.
+
+```python
+A = [9, 7, 2, 3, 5, 6, 8]
+for a in sorted(A):
+    print(a)
+```
+
+Los diccionarios cuentan con un método `items` para iterarlo.
+
+```python
+d = {2:'dos', 8:'ocho', 111:'ciento once'}
+for k, v in d.items():
+    print(f'key = {k} ...... value = {v}')
+```
+
+En todas las estructuras mutables puede revisarse pertenencia. La más rápida es `set`, que lo revisa en tiempo constante porque está implementado sobre una hash table.
+
+```python
+3 in [1, 2, 3]
+```
+
+```python
+5 in {1, 2, 3, 5, 6}
+```
+
+```python
+2 in d
+```
+
+```python
+'dos' in d
+```
+
+> **Pregunta:** ¿Por qué una da `TRUE` y otra `FALSE`?
+
+
+## Funciones
 
 ```python
 
