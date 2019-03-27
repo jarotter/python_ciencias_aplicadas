@@ -25,7 +25,7 @@ import this
 
 Dependiendo de su carrera y elección de materias, en su estancia en el ITAM habrán usado MATLAB (sobre todo en cosas numéricas) o R (en cosas estadísticas). El objetivo de este curso es introducir Python como una mejor alternativa para sus clases y como lenguaje de programación general. Aunque R tenga sus casos de uso y MATLAB funcione, la [Popularidad de Python](http://pypl.github.io/PYPL.html) ha aumentado durante los últimos años.
 
-![](./img/pl_popularity.png)
+![](../img/pl_popularity.png)
 
 
 Algo debe tener, ¿no?
