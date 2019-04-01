@@ -160,6 +160,10 @@ pero con vectorización.
 Los arreglos no tienen que ser necesariamente numéricos. Por ejemplo,
 
 ```python
+x
+```
+
+```python
 y = x > 0
 y
 ```
@@ -198,7 +202,7 @@ np.linspace(0, 100, 9)
 ```
 
 ```python
-np.arange(0, 101, 12.5)
+np.arange(0, 100.001, 12.5)
 ```
 
 > ¿A qué les suena esta inconsistencia notacional tan horrible?
@@ -225,6 +229,10 @@ Ojo, SciPy es tan grande que es mejor importar sólo lo que van a usar. Ahora al
 
 ```python
 A = np.array([[1, 2, 3], [4, 6, 5], [9, 8, 7]])
+```
+
+```python
+A
 ```
 
 #### Sistemas de ecuaciones
@@ -256,7 +264,7 @@ Para la solución de mínimos cuadrados lineales, sugiero `linalg.pinv2`, que ca
 En resumen, `linalg.norm` es la norma $p$ en vectores si `ord` < $\infty$
 
 $$
-\|\mathbf{x}\|_p = \left( \sum_{i=1}^n x_i^p\right)^\frac{1}{p}
+\|\mathbf{x}\|_p = \left( \sum_{i=1}^n |x_i|^p\right)^\frac{1}{p}
 $$
 
 O bien, $\|\mathbf{x}\|_\infty = \max_i x_i$, enviando `ord=np.inf` o $\|\mathbf{x}\|_{-\infty} = \min_ix_i$.
@@ -330,6 +338,10 @@ linalg.diagsvd(s, *B.shape)
 Para la descomposición de Cholesky de una matriz hermitiana $A$
 
 ```python
+linalg.cho_factor(A)
+```
+
+```python
 A = np.array([
     [2, 5, 7],
     [1, 3, 4],
@@ -338,8 +350,10 @@ A = np.array([
 
 try:
     linalg.cho_factor(A)
+    # resolver sistema por cholesky
 except linalg.LinAlgError:
     print('A no es hermitiana')
+    # resolver sistema sin cholesky
 ```
 
 ```python
@@ -428,6 +442,12 @@ f_prima
 ```
 
 `f_prima` es una función, no un numerito, y puede usarse como cualquier otra función. Por ejemplo
+
+```python
+import numpy as np
+from scipy import linalg
+x = np.array([2, 3, 45])
+```
 
 ```python
 f(x)
