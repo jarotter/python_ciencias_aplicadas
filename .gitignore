@@ -107,3 +107,13 @@ venv.bak/
 *.ipynb
 
 pca.yml
+data/northwind/README.md
+data/northwind/categories.csv
+data/northwind/customers.csv
+data/northwind/employee_territories.csv
+data/northwind/employees.csv
+data/northwind/products.csv
+data/northwind/regions.csv
+data/northwind/shippers.csv
+data/northwind/suppliers.csv
+data/northwind/territories.csv
