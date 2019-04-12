@@ -569,3 +569,105 @@ sns.relplot(x="timepoint", y="signal", hue="region",
             units="subject", estimator=None,
             kind="line", data=fmri.query("event == 'stim'"))
 ```
+
+## Vista rápida a otros paquetes:
+
+### [`scipy.stats`](https://docs.scipy.org/doc/scipy/reference/tutorial/stats.html).
+
+Ya habíamos visto algunas partes de SciPy, y también hay toda una colección de funciones estadísticas. Dentro de `scipy.stats` hay funciones para generar números aleatorios de al menos 90 modelos diferentes, con la posibilidad de definir nuevas variables aleatorias a través de su función de distribución. 
+
+```python
+from scipy import stats
+```
+
+Por ejemplo, para generar observaciones de una normal estándar
+
+```python
+stats.norm.rvs(size=10)
+```
+
+Las distribuciones en SciPy están parametrizadas por scale/location. Esto puede ser un poco raro porque en ocasiones es diferente a los parámetros naturales de las distribuciones, pero nada que ver la documentación no resuelva. 
+
+Para especificar por ejemplo, la media y desviación estándar de una normal usamos `loc` y `scale`.
+
+```python
+sns.distplot(stats.norm.rvs(loc=3, scale=1/4.85, size=100))
+```
+
+Las distribuciones, además de `rvs` (random variates) tienen métodos
+
++ pdf: función de densidad de probabilidad
++ cdf: función de distribución 
++ sf: función de supervivencia (1-CDF)
++ ppf: función cuantil (inversa de la CDF)
++ isf: función de supervivencia inversa
+
+Para asegurar reproducibilidad, el argumento es `random_state`
+
+```python
+stats.gamma.rvs(a=2, size=100, random_state=2283)
+```
+
+Para ajustar un modelo a datos, se puede usar el método `fit`, que por defecto da los estimadores máximoverosímiles.
+
+```python
+x = stats.norm.rvs(loc=14, scale=2, size=35)
+stats.norm.fit(x)
+```
+
+En este paquete también hay diferentes medidas de correlación (por supuesto la de Pearson, la de Spearman y la tau de Kendall), funciones para hacer pruebas de hipótesis (incluyendo Kolmogorov-Smirnov, Anderson-Darling, Wilcoxon y otras), transformaciones como Box-Cox, un método para muestrear de una distribución arbitraria y funciones circulares.
+
+Para más información, vean la [referencia](https://docs.scipy.org/doc/scipy/reference/stats.html) o el [tutorial](https://docs.scipy.org/doc/scipy/reference/tutorial/stats.html).
+
+### Más estadística: [statsmodels](http://www.statsmodels.org/stable/index.html)
+
+Si necesitan algo un poco más sofisticado como series de tiempo, modelos mixtos (la versión frecuentista de los modelos jerárquicos), ANOVA, modelos lineales y lineales generalizados, análisis de supervivencia o tablas de contingencia, statsmodels es el paquete correcto. Los objetos de `statsmodels` están pensados para parecerse más a R. Pueden usar notación de fórmula y el output a consola es mucho más amigable
+
+```python
+import statsmodels.api as sm
+import statsmodels.formula.api as smf
+
+# Datos
+df = sm.datasets.get_rdataset("Guerry", "HistData").data
+
+# Regresión
+r = smf.ols('Lottery ~ Literacy + np.log(Pop1831)', data=df).fit()
+
+
+print(r.summary())
+```
+
+### Estadística bayesiana
+
+La oferta de software para cómputo bayesiano está creciendo mucho en Python.
+
+#### [PyMC3](https://docs.pymc.io)
+Es proyecto de NumFocus. Tiene [tutoriales](https://docs.pymc.io/nb_tutorials/index.html) y [ejemplos](https://docs.pymc.io/nb_examples/index.html) buenísimos para aprender análisis de datos bayesiano. Aunque el backend está construido sobre una plataforma descontinuada (theano) el equipo de desarrollo ya está trabajando en PyMC4 sobre TensorFlow :)
+
+PyMC3 tiene una buena implementación de NUTS (un algoritmo de hamiltonian monte carlo) y algunos métodos variacionales modernos. Es una opción sólida en general.
+
+#### Pyro
+Desarrollado sobre PyTorch por los ingenieros de Uber, [Pyro](http://pyro.ai) se enfoca más en métodos variacionales para escalar a grandes volúmenes. Muy bueno para control estocástico o deep learning bayesiano.
+
+#### Edward
+[Edward](http://edwardlib.org) fue desarrollado por Dustin Tran con apoyo de David Blei (rockstars del cómputo bayesiano) y está sobre TensorFlow. No lo he usado mucho pero TensorFlow es una base muy sólida porque lo mantiene Google y el paquete tiene todo el enfoque moderno de análisis bayesiano.
+
+
+### Aprendizaje de máquina
+
+#### scikit-learn
+scikit-learn es el paquete por excelencia de aprendizaje de máquina en Python. Tiene ya once años de maduración y sobre él se han construido varias extensiones. SKLearn permite preprocesar datos y ajustar modelos de aprendizaje de máquina de manera muy rápida.
+
+La idea del API de sklearn es que cada **predictor** (un algoritmo de aprendizaje) tiene métodos de `.fit` y `.predict`, además de `.transform` si tiene sentido. Esto puede ser raro de usar al inicio, pero cuando te acostumbras a la convención resulta muy cómoda la consistencia.
+
+Scikit-learn tiene implementación de varios algoritmos de regresión, clasificación, *clustering*, reducción de dimensión e imputación de datos faltantes. Además, permite construir pipelines completos que incluyan división en conjunto de prueba y entrenamiento, validación cruzada y optimización de hiperparámetros (hay una versión bayesiana en el paquete scikit-optimize).
+
+#### TensorFlow y Keras
+Está mucho más allá del alcance de este curso, pero son los paquetes para hacer deep learning. Keras realmente es un API de alto nivel sobre TensorFlow.
+
+
+### Bokeh
+
+Si quieren visualización un poco más fresa, [bokeh](https://bokeh.pydata.org/en/latest/docs/gallery.html) es mucho más interactivo que lo que pueden hacer en seaborn. 
+
+De cualquier modo, si quieren visualizaciones *muuuy* finas, tal vez valga la pena aprender D3.
